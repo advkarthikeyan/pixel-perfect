@@ -5,32 +5,51 @@ import profile from "@/assets/profile.png";
 const phrases = ["I build.", "I scale.", "I ship software."];
 
 const KineticTagline = () => {
+  const [phase, setPhase] = useState<"dissolve-in" | "hold" | "dissolve-out">("dissolve-in");
   const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % phrases.length);
-    }, 2500); // Total duration per phrase
-    return () => clearInterval(timer);
+  const next = useCallback(() => {
+    setPhase("dissolve-out");
+    setTimeout(() => {
+      setIndex((i) => (i + 1) % phrases.length);
+      setPhase("dissolve-in");
+    }, 600);
   }, []);
 
+  useEffect(() => {
+    if (phase === "dissolve-in") {
+      const t = setTimeout(() => setPhase("hold"), 700);
+      return () => clearTimeout(t);
+    }
+    if (phase === "hold") {
+      const t = setTimeout(next, 1800);
+      return () => clearTimeout(t);
+    }
+  }, [phase, next]);
+
+  const animClass =
+    phase === "dissolve-in"
+      ? "dissolve-in"
+      : phase === "dissolve-out"
+      ? "dissolve-out"
+      : "dissolve-hold";
+
   return (
-    <div className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-amber-300 h-[1.5em] overflow-hidden relative">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: "0%", opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ 
-            duration: 0.5, 
-            ease: [0.32, 0.72, 0, 1] // Custom cubic-bezier for a "snappy" roll
-          }}
-          className="absolute inset-0"
-        >
-          {phrases[index]}
-        </motion.div>
-      </AnimatePresence>
+    <div
+      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-amber-300 h-[1.3em] overflow-hidden"
+      aria-label="I build. I scale. I ship software."
+    >
+      <div className={`dissolve-word ${animClass}`}>
+        {phrases[index].split("").map((char, i) => (
+          <span
+            key={i}
+            className="inline-block dissolve-char"
+            style={{ animationDelay: `${i * 0.03}s` }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
+      </div>
     </div>
   );
 };
