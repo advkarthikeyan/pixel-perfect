@@ -1,6 +1,5 @@
 import { Linkedin, Mail, Phone, Briefcase, ChevronDown } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
-import profile from "@/assets/profile.png";
 
 const phrases = ["I build.", "I scale.", "I ship software."];
 
@@ -186,7 +185,7 @@ export const Hero = () => {
 
             <div className="relative w-[280px] h-[320px] md:w-[360px] md:h-[420px] hex-clip bg-gradient-to-br from-primary/20 to-accent/10 p-1 animate-float">
               <img
-                src={profile}
+                src="https://images.pexels.com/photos/7749093/pexels-photo-7749093.jpeg?auto=compress&cs=tinysrgb&w=400"
                 alt="Amirda Varshini MN — Full Stack Developer"
                 width={400}
                 height={460}
