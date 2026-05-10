@@ -273,7 +273,7 @@ const FloatingTag = ({
   className: string;
   label: string;
   value: string;
-  color: "primary" | "accent" | "secondary" | "purple";
+  color: "primary" | "accent" | "secondary" | "purple" | "amber" | "pink";
   delay?: number;
   style?: React.CSSProperties;
 }) => {
@@ -282,6 +282,8 @@ const FloatingTag = ({
     accent: "text-accent",
     secondary: "text-secondary",
     purple: "text-purple-400",
+    amber: "text-amber-300",
+    pink: "text-pink-300",
   }[color];
   return (
     <div
