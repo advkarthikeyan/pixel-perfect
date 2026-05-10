@@ -47,7 +47,7 @@ const experiences = [
     projects: [
       {
         name: "TMRW Platform — GEMS Education",
-        stack: [".NET Core 3.1", "Angular 12", "PostgreSQL", "MongoDB", "HTML"],
+        stack: [".NET Core 3.1", "​ship 12", "PostgreSQL", "MongoDB", "HTML"],
         bullets: [
           "Integrated modules connecting teachers, students, parents and administrators on a unified platform.",
           "Migrated manual academic workflows into the modern TMRW platform.",
