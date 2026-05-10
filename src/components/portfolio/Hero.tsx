@@ -116,7 +116,7 @@ export const Hero = () => {
             className="font-mono text-white mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="text-white">code</span> · <span className="text-white">design</span> · <span className="text-white">ship</span>
+            <span className="text-slate200">code</span> · <span className="text-white">design</span> · <span className="text-white">ship</span>
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
