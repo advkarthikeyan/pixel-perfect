@@ -81,7 +81,7 @@ const TypingDev = () => {
 
   return (
     <span className="block">
-      <span className="text-foreground">Dev</span>
+      <span className="text-foreground"> <Dev </span>
       <span className="text-foreground">
         {suffix.slice(0, visibleCount)}
       </span>
