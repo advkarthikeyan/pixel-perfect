@@ -283,8 +283,8 @@ const FloatingTag = ({
     secondary: "text-secondary",
     purple: "text-purple-400",
     amber: "font-mono-tag text-green-400",
-    pink: "font-mono-tag text-gradient italic animate-gradient text-violet-500",
-    rose: "font-mono-tag text-rose-500",
+    pink: "font-mono-tag text-violet-500",
+    rose: "font-mono-tag text-red-500",
   }[color];
   return (
     <div
