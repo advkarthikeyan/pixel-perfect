@@ -108,15 +108,15 @@ export const Hero = () => {
               <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600" />
             </span>
-            <span className="text-xs text-muted-foreground">Open to Full Stack opportunities</span>
+            <span className="text-xs text-slate-200">Open to Full Stack opportunities</span>
           </div>
 
           {/* Tech tags - staggered */}
           <p
-            className="font-mono-tag text-muted-foreground mb-6 uppercase tracking-wider animate-slide-up"
+            className="font-mono-tag text-white mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="text-primary">.NET</span> · <span className="text-accent">​ship</span> · <span className="text-purple-400">Full Stack</span>
+            <span className="text-white">code</span> · <span className="text-white">design</span> · <span className="text-white">ship</span>
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
