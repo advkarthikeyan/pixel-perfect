@@ -105,7 +105,7 @@ export const Hero = () => {
             style={{ animationDelay: "0.1s" }}
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+              <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-90" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600" />
             </span>
             <span className="text-xs text-slate-200">Open to Full Stack Developer opportunities</span>
