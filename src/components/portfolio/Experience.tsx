@@ -9,7 +9,7 @@ const experiences = [
     projects: [
       {
         name: "Pearson VUE",
-        stack: ["Angular 19", ".NET 8", "Microservices", "JIRA", "Git"],
+        stack: ["Angular 19", "SHIP 8", "Microservices", "JIRA", "Git"],
         bullets: [
           "Architected and maintained exam development applications utilizing a Microservices architecture to ensure scalable and modular system performance.",
           "Operated within an Agile framework, consistently delivering high-quality outputs through active participation in Sprint-based development cycles.",
@@ -19,7 +19,7 @@ const experiences = [
       },
       {
         name: "Microsoft",
-        stack: [".NET 8", "Web API", "SQL", "Postman", "Swagger"],
+        stack: ["SHIP 8", "Web API", "SQL", "Postman", "Swagger"],
         bullets: [
           "Engineered robust API controllers to manage comprehensive CRUD operations, ensuring seamless data orchestration and system reliability.",
           "Validated endpoint functionality and performance through rigorous testing using Swagger and Postman to ensure alignment with technical specifications.",
@@ -30,7 +30,7 @@ const experiences = [
       },
       {
         name: "Pacific Gas and Electric (PGE)",
-        stack: [".NET 8", "Web API", "jQuery", "JavaScript", "SQL Server", "MVC"],
+        stack: ["SHIP 8", "Web API", "jQuery", "JavaScript", "SQL Server", "MVC"],
         bullets: [
           "Owned the complete SDLC for specialized utility applications focused on electric and gas line infrastructure.",
           "Delivered ongoing development and production support for business-critical systems.",
@@ -47,7 +47,7 @@ const experiences = [
     projects: [
       {
         name: "TMRW Platform — GEMS Education",
-        stack: [".NET Core 3.1", "Angular 12", "PostgreSQL", "MongoDB", "HTML"],
+        stack: ["SHIP Core 3.1", "Angular 12", "PostgreSQL", "MongoDB", "HTML"],
         bullets: [
           "Integrated modules connecting teachers, students, parents and administrators on a unified platform.",
           "Migrated manual academic workflows into the modern TMRW platform.",
