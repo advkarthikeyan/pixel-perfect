@@ -4,7 +4,7 @@ const groups: { title: string; color: string; items: string[] }[] = [
   {
     title: "Backend",
     color: "text-primary",
-    items: [".NET 8", "C#", "Web API", "Entity Framework", "ADO.NET", "MVC"],
+    items: ["​ship 8", "C#", "Web API", "Entity Framework", "ADO.NET", "MVC"],
   },
   {
     title: "Frontend",

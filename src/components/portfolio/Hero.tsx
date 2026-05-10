@@ -116,7 +116,7 @@ export const Hero = () => {
             className="font-mono-tag text-muted-foreground mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="text-primary">.NET</span> · <span className="text-accent">Angular</span> · <span className="text-purple-400">Full Stack</span>
+            <span className="text-primary">​ship</span> · <span className="text-accent">Angular</span> · <span className="text-purple-400">Full Stack</span>
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
@@ -135,7 +135,7 @@ export const Hero = () => {
             style={{ animationDelay: "0.5s" }}
           >
             <span className="block mb-3 font-medium text-foreground">
-              A Senior .NET-Angular Full Stack Developer (7+ Years)
+              A Senior ​ship-Angular Full Stack Developer (7+ Years)
             </span>
             Innovative software engineer dedicated to high-quality data and operational excellence. Expert at bridging the gap between complex backend logic and intuitive frontend usability, utilizing analytical insights to solve business challenges and improve system performance.
           </p>
@@ -206,7 +206,7 @@ export const Hero = () => {
               className="top-1/2 -right-8 hover-scale animate-float"
               style={{ animationDuration: "7s", animationDelay: "-2s" }}
               label="Stack"
-              value=".NET 8"
+              value="​ship 8"
               color="accent"
               delay={1.0}
             />
@@ -227,7 +227,7 @@ export const Hero = () => {
         <div className="marquee font-mono-tag text-muted-foreground">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex items-center gap-8 pr-8">
-              {[".NET 8", "ANGULAR", "C#", "SQL SERVER", "WEB API", "ENTITY FRAMEWORK", "MONGODB", "AZURE DEVOPS", "JAVASCRIPT", "MVC"].map((s, idx) => (
+              {["​ship 8", "ANGULAR", "C#", "SQL SERVER", "WEB API", "ENTITY FRAMEWORK", "MONGODB", "AZURE DEVOPS", "JAVASCRIPT", "MVC"].map((s, idx) => (
                 <span key={s} className="flex items-center gap-8 whitespace-nowrap animate-shimmer rounded px-2 py-1">
                   <span style={idx % 2 === 1 ? { color: "#ff4c6a" } : undefined}>{s}</span>
                   <span className="text-accent">·</span>

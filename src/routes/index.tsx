@@ -15,13 +15,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Senior .NET-Angular Full Stack Developer with 7+ years building enterprise applications across utilities and education.",
+          "Senior ​ship-Angular Full Stack Developer with 7+ years building enterprise applications across utilities and education.",
       },
       { property: "og:title", content: "Amirda Varshini M N — Full Stack Developer" },
       {
         property: "og:description",
         content:
-          "Senior .NET-Angular Full Stack Developer with 7+ years shipping production-grade software.",
+          "Senior ​ship-Angular Full Stack Developer with 7+ years shipping production-grade software.",
       },
     ],
   }),
