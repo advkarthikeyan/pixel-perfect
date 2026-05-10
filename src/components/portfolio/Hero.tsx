@@ -1,5 +1,6 @@
 import { Linkedin, Mail, Phone, Briefcase, ChevronDown } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
+import profile from "@/assets/profile.png";
 
 const phrases = ["I build.", "I scale.", "I ship software."];
 
@@ -115,7 +116,7 @@ export const Hero = () => {
             className="font-mono-tag text-muted-foreground mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="intro-big-a font-display text-[10rem] md:text-[14rem] lg:text-[18rem] font-bold leading-none text-accent text-fuchsia-600">SHIP</span> · <span className="text-accent">Angular</span> · <span className="text-purple-400">Full Stack</span>
+            <span className="text-primary">.NET</span> · <span className="text-accent">Angular</span> · <span className="text-purple-400">Full Stack</span>
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
@@ -134,7 +135,7 @@ export const Hero = () => {
             style={{ animationDelay: "0.5s" }}
           >
             <span className="block mb-3 font-medium text-foreground">
-              A Senior SHIP-Angular Full Stack Developer (7+ Years)
+              A Senior .NET-Angular Full Stack Developer (7+ Years)
             </span>
             Innovative software engineer dedicated to high-quality data and operational excellence. Expert at bridging the gap between complex backend logic and intuitive frontend usability, utilizing analytical insights to solve business challenges and improve system performance.
           </p>
@@ -185,7 +186,7 @@ export const Hero = () => {
 
             <div className="relative w-[280px] h-[320px] md:w-[360px] md:h-[420px] hex-clip bg-gradient-to-br from-primary/20 to-accent/10 p-1 animate-float">
               <img
-                src="https://images.pexels.com/photos/7749093/pexels-photo-7749093.jpeg?auto=compress&cs=tinysrgb&w=400"
+                src={profile}
                 alt="Amirda Varshini MN — Full Stack Developer"
                 width={400}
                 height={460}
@@ -205,7 +206,7 @@ export const Hero = () => {
               className="top-1/2 -right-8 hover-scale animate-float"
               style={{ animationDuration: "7s", animationDelay: "-2s" }}
               label="Stack"
-              value="SHIP 8"
+              value=".NET 8"
               color="accent"
               delay={1.0}
             />
@@ -226,7 +227,7 @@ export const Hero = () => {
         <div className="marquee font-mono-tag text-muted-foreground">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex items-center gap-8 pr-8">
-              {["SHIP 8", "ANGULAR", "C#", "SQL SERVER", "WEB API", "ENTITY FRAMEWORK", "MONGODB", "AZURE DEVOPS", "JAVASCRIPT", "MVC"].map((s, idx) => (
+              {[".NET 8", "ANGULAR", "C#", "SQL SERVER", "WEB API", "ENTITY FRAMEWORK", "MONGODB", "AZURE DEVOPS", "JAVASCRIPT", "MVC"].map((s, idx) => (
                 <span key={s} className="flex items-center gap-8 whitespace-nowrap animate-shimmer rounded px-2 py-1">
                   <span style={idx % 2 === 1 ? { color: "#ff4c6a" } : undefined}>{s}</span>
                   <span className="text-accent">·</span>
@@ -277,7 +278,7 @@ const FloatingTag = ({
   style?: React.CSSProperties;
 }) => {
   const colorClass = {
-    primary: "intro-big-a font-display text-[10rem] md:text-[14rem] lg:text-[18rem] font-bold leading-none text-accent text-fuchsia-600",
+    primary: "text-primary",
     accent: "text-accent",
     secondary: "text-secondary",
     purple: "text-purple-400",

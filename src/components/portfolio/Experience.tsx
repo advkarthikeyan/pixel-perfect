@@ -9,7 +9,7 @@ const experiences = [
     projects: [
       {
         name: "Pearson VUE",
-        stack: ["Angular 19", "SHIP 8", "Microservices", "JIRA", "Git"],
+        stack: ["Angular 19", ".NET 8", "Microservices", "JIRA", "Git"],
         bullets: [
           "Architected and maintained exam development applications utilizing a Microservices architecture to ensure scalable and modular system performance.",
           "Operated within an Agile framework, consistently delivering high-quality outputs through active participation in Sprint-based development cycles.",
@@ -19,7 +19,7 @@ const experiences = [
       },
       {
         name: "Microsoft",
-        stack: ["SHIP 8", "Web API", "SQL", "Postman", "Swagger"],
+        stack: [".NET 8", "Web API", "SQL", "Postman", "Swagger"],
         bullets: [
           "Engineered robust API controllers to manage comprehensive CRUD operations, ensuring seamless data orchestration and system reliability.",
           "Validated endpoint functionality and performance through rigorous testing using Swagger and Postman to ensure alignment with technical specifications.",
@@ -30,7 +30,7 @@ const experiences = [
       },
       {
         name: "Pacific Gas and Electric (PGE)",
-        stack: ["SHIP 8", "Web API", "jQuery", "JavaScript", "SQL Server", "MVC"],
+        stack: [".NET 8", "Web API", "jQuery", "JavaScript", "SQL Server", "MVC"],
         bullets: [
           "Owned the complete SDLC for specialized utility applications focused on electric and gas line infrastructure.",
           "Delivered ongoing development and production support for business-critical systems.",
@@ -47,7 +47,7 @@ const experiences = [
     projects: [
       {
         name: "TMRW Platform — GEMS Education",
-        stack: ["SHIP Core 3.1", "Angular 12", "PostgreSQL", "MongoDB", "HTML"],
+        stack: [".NET Core 3.1", "Angular 12", "PostgreSQL", "MongoDB", "HTML"],
         bullets: [
           "Integrated modules connecting teachers, students, parents and administrators on a unified platform.",
           "Migrated manual academic workflows into the modern TMRW platform.",
@@ -65,7 +65,7 @@ const experiences = [
     projects: [
       {
         name: "VWR — CBILL System",
-        stack: ["C#", "ASP.SHIP MVC", "Oracle", "JavaScript", "jQuery", "HTML", "CSS", "Bootstrap", "Web API", "DevExpress"],
+        stack: ["C#", "ASP.NET MVC", "Oracle", "JavaScript", "jQuery", "HTML", "CSS", "Bootstrap", "Web API", "DevExpress"],
         bullets: [
           "Developed finance-oriented applications generating customized invoice reports for VWR International.",
           "Managed DevExpress XtraReports development and project release cycles.",
@@ -74,7 +74,7 @@ const experiences = [
       },
       {
         name: "Enterprise Facility Management System (eFACILITY)",
-        stack: ["C#", "ASP.SHIP MVC", "Oracle", "JavaScript", "jQuery", "Bootstrap"],
+        stack: ["C#", "ASP.NET MVC", "Oracle", "JavaScript", "jQuery", "Bootstrap"],
         bullets: [
           "Assisted with resolving reported bugs in Time and Attendance, Project Management, and Help Desk modules.",
           "Engaged in development activities related to product enhancement for workforce operations.",
