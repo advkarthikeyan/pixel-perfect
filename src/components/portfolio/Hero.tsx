@@ -101,8 +101,8 @@ export const Hero = () => {
         <div>
           {/* Status badge - staggered entrance */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card/40 mb-8 animate-slide-up hover-glow-border cursor-default"
-            style={{ animationDelay: "0.1s" }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card/40 mb-8 animate-slide-up hover-glow-border cursor-default"
+            style={{ animationDelay: "0ms" }}
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-90" />
