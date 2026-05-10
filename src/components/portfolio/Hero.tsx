@@ -116,7 +116,7 @@ export const Hero = () => {
             className="font-mono-tag text-muted-foreground mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="text-primary">.NET</span> · <span className="text-accent">Angular</span> · <span className="text-purple-400">Full Stack</span>
+            <span className="text-primary">.NET</span> · <span className="text-accent">​ship</span> · <span className="text-purple-400">Full Stack</span>
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
@@ -135,7 +135,7 @@ export const Hero = () => {
             style={{ animationDelay: "0.5s" }}
           >
             <span className="block mb-3 font-medium text-foreground">
-              A Senior .NET-Angular Full Stack Developer (7+ Years)
+              A Senior .NET-​ship Full Stack Developer (7+ Years)
             </span>
             Innovative software engineer dedicated to high-quality data and operational excellence. Expert at bridging the gap between complex backend logic and intuitive frontend usability, utilizing analytical insights to solve business challenges and improve system performance.
           </p>
@@ -214,7 +214,7 @@ export const Hero = () => {
               className="-bottom-4 left-4 hover-scale animate-float"
               style={{ animationDuration: "6s", animationDelay: "-3s" }}
               label="Frontend"
-              value="Angular"
+              value="​ship"
               color="purple"
               delay={1.2}
             />

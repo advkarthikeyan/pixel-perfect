@@ -42,7 +42,7 @@ export const Navbar = () => {
     >
       <nav className="container flex items-center justify-between gap-8">
         <a href="#home" className="font-display text-2xl font-semibold group">
-          <span style={{ color: "#ff4c6a" }} className="group-hover:text-accent transition-colors duration-300">A</span>
+          <span style={{ color: "#ff4c6a" }} className="text-primary font-serif">A</span>
           <span className="hover:text-accent transition-colors duration-300">mirda Varshini M N</span>
         </a>
 

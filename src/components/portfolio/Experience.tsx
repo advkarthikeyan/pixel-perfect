@@ -9,7 +9,7 @@ const experiences = [
     projects: [
       {
         name: "Pearson VUE",
-        stack: ["Angular 19", ".NET 8", "Microservices", "JIRA", "Git"],
+        stack: ["​ship 19", ".NET 8", "Microservices", "JIRA", "Git"],
         bullets: [
           "Architected and maintained exam development applications utilizing a Microservices architecture to ensure scalable and modular system performance.",
           "Operated within an Agile framework, consistently delivering high-quality outputs through active participation in Sprint-based development cycles.",
@@ -47,7 +47,7 @@ const experiences = [
     projects: [
       {
         name: "TMRW Platform — GEMS Education",
-        stack: [".NET Core 3.1", "Angular 12", "PostgreSQL", "MongoDB", "HTML"],
+        stack: [".NET Core 3.1", "​ship 12", "PostgreSQL", "MongoDB", "HTML"],
         bullets: [
           "Integrated modules connecting teachers, students, parents and administrators on a unified platform.",
           "Migrated manual academic workflows into the modern TMRW platform.",
