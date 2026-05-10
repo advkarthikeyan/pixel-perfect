@@ -11,7 +11,7 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
 
   const fullName = "Amirda Varshini M N";
   const taglineWords = [
-    { text: "I build.", color: "text-primary" },
+    { text: "I build.", color: "intro-big-a font-display text-[10rem] md:text-[14rem] lg:text-[18rem] font-bold leading-none text-accent text-fuchsia-600" },
     { text: "I scale.", color: "text-accent" },
     { text: "I ship software.", color: "text-gradient" },
   ];
