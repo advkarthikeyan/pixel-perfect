@@ -9,7 +9,7 @@ const groups: { title: string; color: string; items: string[] }[] = [
   {
     title: "Frontend",
     color: "text-accent",
-    items: ["​ship 12", "JavaScript", "jQuery", "HTML", "CSS", "Bootstrap"],
+    items: ["​Angular 19", "JavaScript", "jQuery", "HTML", "CSS", "Bootstrap"],
   },
   {
     title: "Databases",
