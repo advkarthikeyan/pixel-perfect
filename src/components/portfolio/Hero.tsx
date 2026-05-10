@@ -108,7 +108,7 @@ export const Hero = () => {
               <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600" />
             </span>
-            <span className="text-xs text-slate-200">Open to Full Stack Developer opportunities</span>
+            <span className="text-xs text-slate-200">Open to Full Stack Developer opportunities and freelance contracts</span>
           </div>
 
           {/* Tech tags - staggered */}
@@ -144,7 +144,7 @@ export const Hero = () => {
           <div className="flex flex-wrap items-center gap-4 mb-10 animate-scale-in" style={{ animationDelay: "0.6s" }}>
             <a
               href="#experience"
-              className="group relative px-7 py-3.5 rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-medium hover:shadow-[var(--shadow-glow)] transition-all overflow-hidden hover-ripple"
+              className="group relative px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-medium hover:shadow-[var(--shadow-glow)] transition-all overflow-hidden hover-ripple"
             >
               <span className="relative z-10">View My Work</span>
               <span className="relative z-10 ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -207,7 +207,7 @@ export const Hero = () => {
               style={{ animationDuration: "7s", animationDelay: "-2s" }}
               label="Stack"
               value=".NET 8"
-              color="pink"
+              color="rose"
               delay={1.0}
             />
             <FloatingTag
@@ -273,7 +273,7 @@ const FloatingTag = ({
   className: string;
   label: string;
   value: string;
-  color: "primary" | "accent" | "secondary" | "purple" | "amber" | "pink";
+  color: "primary" | "accent" | "secondary" | "purple" | "amber" | "pink" | "rose";
   delay?: number;
   style?: React.CSSProperties;
 }) => {
@@ -284,6 +284,7 @@ const FloatingTag = ({
     purple: "text-purple-400",
     amber: "font-mono-tag text-green-400",
     pink: "font-mono-tag text-gradient italic animate-gradient text-violet-500",
+    rose: "font-mono-tag text-rose-500",
   }[color];
   return (
     <div

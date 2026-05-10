@@ -42,7 +42,7 @@ export const Navbar = () => {
     >
       <nav className="container flex items-center justify-between gap-8">
         <a href="#home" className="font-display text-2xl font-semibold group">
-          <span className="text-accent font-serif">A</span>
+          <span className="hover:text-accent transition-colors duration-300">A</span>
           <span className="hover:text-accent transition-colors duration-300">mirda Varshini M N</span>
         </a>
 
@@ -66,7 +66,7 @@ export const Navbar = () => {
 
         <a
           href="#contact"
-          className="hidden lg:inline-flex px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground text-sm font-medium hover:shadow-[var(--shadow-glow)] hover:scale-105 transition-all duration-300"
+          className="hidden lg:inline-flex px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:shadow-[var(--shadow-glow)] hover:scale-105 transition-all duration-300"
         >
           Hire Me
         </a>
