@@ -199,7 +199,7 @@ export const Hero = () => {
               style={{ animationDuration: "5s", animationDelay: "0s" }}
               label="Experience"
               value="7+ Years"
-              color="primary"
+              color="amber"
               delay={0.8}
             />
             <FloatingTag
@@ -207,7 +207,7 @@ export const Hero = () => {
               style={{ animationDuration: "7s", animationDelay: "-2s" }}
               label="Stack"
               value=".NET 8"
-              color="accent"
+              color="pink"
               delay={1.0}
             />
             <FloatingTag
