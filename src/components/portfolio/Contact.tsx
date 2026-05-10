@@ -94,7 +94,7 @@ export const Footer = () => (
   <footer className="border-t border-border py-10 relative overflow-hidden">
     <div className="container flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
       <p className="hover:text-foreground transition-colors duration-300">© {new Date().getFullYear()} Amirda Varshini MN. Built with care.</p>
-      <p className="font-mono-tag animate-shimmer rounded px-2 py-1">FULL STACK · ​ship · ANGULAR</p>
+      <p className="font-mono-tag animate-shimmer rounded px-2 py-1">FULL STACK · .NET · ANGULAR</p>
     </div>
   </footer>
 );
