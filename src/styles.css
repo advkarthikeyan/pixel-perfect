@@ -58,8 +58,8 @@
   --muted: 282 40% 10%;
   --muted-foreground: 279 20% 65%;
 
-  --accent: 350 100% 65%;
-  --accent-foreground: 282 80% 14%;
+  --accent: 293 69% 49%;
+  --accent-foreground: 0 0% 100%;
 
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
@@ -71,10 +71,10 @@
   --radius: 1rem;
 
   --gradient-hero: radial-gradient(ellipse at top left, hsl(282 80% 14% / 0.6), transparent 60%),
-                   radial-gradient(ellipse at bottom right, hsl(350 100% 65% / 0.35), transparent 55%),
+                   radial-gradient(ellipse at bottom right, hsl(293 69% 49% / 0.35), transparent 55%),
                    linear-gradient(135deg, hsl(0 0% 2%), hsl(0 0% 0%));
-  --gradient-text: linear-gradient(135deg, hsl(170 100% 65%), hsl(350 100% 65%));
-  --gradient-accent: linear-gradient(135deg, hsl(170 100% 65%), hsl(350 100% 65%));
+  --gradient-text: linear-gradient(135deg, hsl(170 100% 65%), hsl(293 69% 49%));
+  --gradient-accent: linear-gradient(135deg, hsl(170 100% 65%), hsl(293 69% 49%));
   --gradient-card: linear-gradient(160deg, hsl(282 40% 8% / 0.9), hsl(282 40% 4% / 0.9));
 
   --shadow-glow: 0 0 60px hsl(170 100% 65% / 0.4);
