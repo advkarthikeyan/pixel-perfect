@@ -1,5 +1,4 @@
 import { Linkedin, Mail, Phone, Briefcase, ChevronDown } from "lucide-react";
-import { useEffect, useState, useCallback } from "react";
 import profile from "@/assets/profile.png";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
