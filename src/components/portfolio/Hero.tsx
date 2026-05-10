@@ -53,7 +53,6 @@ const KineticTagline = () => {
     </div>
   );
 };
-
 const TypingDev = () => {
   const suffix = "ELOPER";
   const [visibleCount, setVisibleCount] = useState(0);
