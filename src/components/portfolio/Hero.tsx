@@ -81,11 +81,11 @@ const TypingDev = () => {
 
   return (
     <span className="block">
-      <span className="text-gradient animate-gradient bg-clip-text">Dev</span>
-      <span className="text-gradient animate-gradient bg-clip-text">
+      <span className="text-foreground">Dev</span>
+      <span className="text-foreground">
         {suffix.slice(0, visibleCount)}
       </span>
-      <span className="text-accent animate-blink">_</span>
+      <span className="text-white animate-blink">_</span>
     </span>
   );
 };
