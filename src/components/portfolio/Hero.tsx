@@ -120,7 +120,7 @@ export const Hero = () => {
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
-          <h1 className="font-display font-black uppercase tracking-tight text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-6 animate-clip-reveal" style={{ animationDelay: "0.3s" }}>
+          <h1 className="font-sans font-black uppercase tracking-tight text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-6 animate-clip-reveal" style={{ animationDelay: "0.3s" }}>
             <span className="block text-foreground">Full</span>
             <span className="block text-foreground">Stack</span>
             <TypingDev />
