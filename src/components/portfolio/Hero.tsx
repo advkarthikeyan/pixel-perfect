@@ -113,7 +113,7 @@ export const Hero = () => {
 
           {/* Tech tags - staggered */}
           <p
-            className="font-mono text-muted foreground mb-6 uppercase tracking-wider animate-slide-up"
+            className="font-mono text-white mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
             <span className="text-white">code</span> · <span className="text-white">design</span> · <span className="text-white">ship</span>
