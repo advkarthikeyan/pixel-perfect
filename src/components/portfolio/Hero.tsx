@@ -36,7 +36,7 @@ const KineticTagline = () => {
 
   return (
     <div
-      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-accent h-[1.3em] overflow-hidden"
+      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-amber-300 h-[1.3em] overflow-hidden"
       aria-label="I build. I scale. I ship software."
     >
       <div className={`dissolve-word ${animClass}`}>
