@@ -135,7 +135,7 @@ export const Hero = () => {
             style={{ animationDelay: "0.5s" }}
           >
             <span className="block mb-3 font-medium text-foreground">
-              A Senior .NET-Angular Full Stack Developer (7+ Years)
+              A Senior .NET-​ship Full Stack Developer (7+ Years)
             </span>
             Innovative software engineer dedicated to high-quality data and operational excellence. Expert at bridging the gap between complex backend logic and intuitive frontend usability, utilizing analytical insights to solve business challenges and improve system performance.
           </p>
