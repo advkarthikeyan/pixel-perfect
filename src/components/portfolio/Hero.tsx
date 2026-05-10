@@ -1,7 +1,6 @@
 import { Linkedin, Mail, Phone, Briefcase, ChevronDown } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import profile from "@/assets/profile.png";
-
 const phrases = ["I build.", "I scale.", "I ship software."];
 
 const KineticTagline = () => {
