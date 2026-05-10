@@ -36,7 +36,7 @@ const KineticTagline = () => {
 
   return (
     <div
-      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-accent h-[1.3em] overflow-hidden"
+      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-amber-300 h-[1.3em] overflow-hidden"
       aria-label="I build. I scale. I ship software."
     >
       <div className={`dissolve-word ${animClass}`}>
@@ -81,11 +81,11 @@ const TypingDev = () => {
 
   return (
     <span className="block">
-      <span className="text-gradient animate-gradient bg-clip-text">Dev</span>
-      <span className="text-gradient animate-gradient bg-clip-text">
+      <span className="text-foreground">Dev</span>
+      <span className="text-foreground">
         {suffix.slice(0, visibleCount)}
       </span>
-      <span className="text-accent animate-blink">_</span>
+      <span className="text-white animate-blink">_</span>
     </span>
   );
 };
@@ -108,15 +108,15 @@ export const Hero = () => {
               <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600" />
             </span>
-            <span className="text-xs text-muted-foreground">Open to Full Stack opportunities</span>
+            <span className="text-xs text-slate-200">Open to Full Stack opportunities</span>
           </div>
 
           {/* Tech tags - staggered */}
           <p
-            className="font-mono-tag text-muted-foreground mb-6 uppercase tracking-wider animate-slide-up"
+            className="font-mono-tag text-white mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="text-primary">.NET</span> · <span className="text-accent">​ship</span> · <span className="text-purple-400">Full Stack</span>
+            <span className="text-white">code</span> · <span className="text-white">design</span> · <span className="text-white">ship</span>
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
@@ -199,7 +199,7 @@ export const Hero = () => {
               style={{ animationDuration: "5s", animationDelay: "0s" }}
               label="Experience"
               value="7+ Years"
-              color="primary"
+              color="amber"
               delay={0.8}
             />
             <FloatingTag
@@ -207,7 +207,7 @@ export const Hero = () => {
               style={{ animationDuration: "7s", animationDelay: "-2s" }}
               label="Stack"
               value=".NET 8"
-              color="accent"
+              color="pink"
               delay={1.0}
             />
             <FloatingTag
@@ -273,7 +273,7 @@ const FloatingTag = ({
   className: string;
   label: string;
   value: string;
-  color: "primary" | "accent" | "secondary" | "purple";
+  color: "primary" | "accent" | "secondary" | "purple" | "amber" | "pink";
   delay?: number;
   style?: React.CSSProperties;
 }) => {
@@ -282,6 +282,8 @@ const FloatingTag = ({
     accent: "text-accent",
     secondary: "text-secondary",
     purple: "text-purple-400",
+    amber: "text-amber-300",
+    pink: "text-pink-300",
   }[color];
   return (
     <div
