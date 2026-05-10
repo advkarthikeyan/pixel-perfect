@@ -206,7 +206,7 @@ export const Hero = () => {
               className="top-1/2 -right-8 hover-scale animate-float"
               style={{ animationDuration: "7s", animationDelay: "-2s" }}
               label="Stack"
-              value=".NET 8"
+              value=".NET"
               color="rose"
               delay={1.0}
             />
@@ -214,7 +214,7 @@ export const Hero = () => {
               className="-bottom-4 left-4 hover-scale animate-float"
               style={{ animationDuration: "6s", animationDelay: "-3s" }}
               label="Frontend"
-              value="Angular 12"
+              value="Angular"
               color="pink"
               delay={1.2}
             />
