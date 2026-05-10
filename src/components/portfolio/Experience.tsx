@@ -65,7 +65,7 @@ const experiences = [
     projects: [
       {
         name: "VWR — CBILL System",
-        stack: ["C#", "ASP.NET MVC", "Oracle", "JavaScript", "jQuery", "HTML", "CSS", "Bootstrap", "Web API", "DevExpress"],
+        stack: ["C#", "ASP.SHIP MVC", "Oracle", "JavaScript", "jQuery", "HTML", "CSS", "Bootstrap", "Web API", "DevExpress"],
         bullets: [
           "Developed finance-oriented applications generating customized invoice reports for VWR International.",
           "Managed DevExpress XtraReports development and project release cycles.",
@@ -74,7 +74,7 @@ const experiences = [
       },
       {
         name: "Enterprise Facility Management System (eFACILITY)",
-        stack: ["C#", "ASP.NET MVC", "Oracle", "JavaScript", "jQuery", "Bootstrap"],
+        stack: ["C#", "ASP.SHIP MVC", "Oracle", "JavaScript", "jQuery", "Bootstrap"],
         bullets: [
           "Assisted with resolving reported bugs in Time and Attendance, Project Management, and Help Desk modules.",
           "Engaged in development activities related to product enhancement for workforce operations.",
