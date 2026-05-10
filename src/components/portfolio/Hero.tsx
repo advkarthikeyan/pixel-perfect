@@ -108,7 +108,7 @@ export const Hero = () => {
               <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600" />
             </span>
-            <span className="text-xs text-slate-200">Open to Full Stack Developer opportunities and <br />freelance contracts.</span>
+            <span className="text-xs text-slate-200">Open to Full Stack Developer opportunities</span>
           </div>
 
           {/* Tech tags - staggered */}
