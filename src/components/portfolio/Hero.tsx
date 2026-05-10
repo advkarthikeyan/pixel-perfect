@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import profile from "@/assets/profile.png";
 
 const phrases = ["I build.", "I scale.", "I ship software."];
+
 const KineticTagline = () => {
   const [index, setIndex] = useState(0);
 
@@ -34,7 +35,6 @@ const KineticTagline = () => {
   );
 };
 
-export default KineticTagline;
 const TypingDev = () => {
   const suffix = "ELOPER";
   const [visibleCount, setVisibleCount] = useState(0);
