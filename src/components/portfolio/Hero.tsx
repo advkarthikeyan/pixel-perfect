@@ -277,7 +277,7 @@ const FloatingTag = ({
   style?: React.CSSProperties;
 }) => {
   const colorClass = {
-    primary: "text-primary",
+    primary: "intro-big-a font-display text-[10rem] md:text-[14rem] lg:text-[18rem] font-bold leading-none text-accent text-fuchsia-600",
     accent: "text-accent",
     secondary: "text-secondary",
     purple: "text-purple-400",
