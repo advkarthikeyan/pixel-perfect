@@ -35,7 +35,7 @@ export const Contact = () => {
     <section id="contact" className="py-24 md:py-32 bg-card/20 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-morph" />
-      <div className="absolute top-0 right-1/4 w-72 h-72 bg-accent/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-5s" }} />
+      <div className="absolute top-0 right-1/4 w-72 h-72 bg-green/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-5s" }} />
 
       <div className="container relative">
         <p className="font-mono-tag mb-4 text-accent reveal-blur" style={{ transitionDelay: "0.1s" }}>
