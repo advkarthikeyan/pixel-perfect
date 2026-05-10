@@ -214,7 +214,7 @@ export const Hero = () => {
               className="-bottom-4 left-4 hover-scale animate-float"
               style={{ animationDuration: "6s", animationDelay: "-3s" }}
               label="Frontend"
-              value="Angular"
+              value="​ship"
               color="purple"
               delay={1.2}
             />
