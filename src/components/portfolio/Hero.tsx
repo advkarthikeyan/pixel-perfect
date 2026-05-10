@@ -116,7 +116,7 @@ export const Hero = () => {
             className="font-mono-tag text-muted-foreground mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="text-primary">.NET</span> · <span className="text-accent">Angular</span> · <span className="text-purple-400">Full Stack</span>
+            <span className="text-primary">.NET</span> · <span className="text-accent">​ship</span> · <span className="text-purple-400">Full Stack</span>
           </p>
 
           {/* Main heading - Full Stack Dev_ with typing ELOPER */}
