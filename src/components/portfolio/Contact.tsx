@@ -49,7 +49,7 @@ export const Contact = () => {
           Let's build <span className="text-gradient italic animate-gradient">something</span> together.
         </h2>
         <p className="text-lg text-muted-foreground max-w-xl mb-12 reveal-blur" style={{ transitionDelay: "0.3s" }}>
-          Open to Full Stack Developer opportunities, freelance contracts and collaborations.
+          Open to Full Stack Developer opportunities and freelance contracts.
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
