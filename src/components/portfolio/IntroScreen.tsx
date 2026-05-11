@@ -4,23 +4,49 @@ interface IntroScreenProps {
   onComplete: () => void;
 }
 
-type Phase = "zoom" | "transform" | "type" | "exit";
+// Storyboard phases (mirrors the 12-frame reference)
+//  zoom1 -> zoom2 -> zoom3 (A grows in 3 stages, centered)
+//  rotate            (A rotates 90deg CW, still intact -> looks like ◁)
+//  separate          (crossbar slides out to the right)
+//  slash             (the separated dash rotates ~ -65deg to become /)
+//  compose           (the </ shrinks and shifts to the left of the text area)
+//  type              (typewriter "Amirda varshini M N" with blinking _)
+//  exit              (whole screen fades out)
+type Phase =
+  | "zoom1"
+  | "zoom2"
+  | "zoom3"
+  | "rotate"
+  | "separate"
+  | "slash"
+  | "compose"
+  | "type"
+  | "exit";
+
+const SCHEDULE: { phase: Phase; at: number }[] = [
+  { phase: "zoom1", at: 0 },
+  { phase: "zoom2", at: 350 },
+  { phase: "zoom3", at: 750 },
+  { phase: "rotate", at: 1400 },
+  { phase: "separate", at: 2100 },
+  { phase: "slash", at: 2600 },
+  { phase: "compose", at: 3100 },
+  { phase: "type", at: 3500 },
+];
 
 export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
-  const [phase, setPhase] = useState<Phase>("zoom");
+  const [phase, setPhase] = useState<Phase>("zoom1");
   const [typed, setTyped] = useState("");
 
-  const fullName = "Amirda Varshini M N";
+  const fullName = "Amirda varshini M N";
   const handleComplete = useCallback(onComplete, [onComplete]);
 
-  // Phase scheduling: zoom -> transform -> type -> exit
+  // Drive phases on a fixed schedule
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("transform"), 1300);
-    const t2 = setTimeout(() => setPhase("type"), 2300);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    const timers = SCHEDULE.map(({ phase: p, at }) =>
+      setTimeout(() => setPhase(p), at),
+    );
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   // Typewriter
@@ -31,50 +57,90 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
       i += 1;
       setTyped(fullName.slice(0, i));
       if (i >= fullName.length) clearInterval(id);
-    }, 90);
+    }, 95);
     return () => clearInterval(id);
   }, [phase]);
 
   // Exit / complete
   useEffect(() => {
-    const total = 2300 + fullName.length * 90 + 2200;
+    const typeStart = SCHEDULE[SCHEDULE.length - 1].at;
+    const total = typeStart + fullName.length * 95 + 1800;
     const exitT = setTimeout(() => setPhase("exit"), total);
-    const doneT = setTimeout(handleComplete, total + 800);
+    const doneT = setTimeout(handleComplete, total + 700);
     return () => {
       clearTimeout(exitT);
       clearTimeout(doneT);
     };
   }, [handleComplete]);
 
-  const morphed = phase === "transform" || phase === "type" || phase === "exit";
+  const reachedRotate =
+    phase === "rotate" ||
+    phase === "separate" ||
+    phase === "slash" ||
+    phase === "compose" ||
+    phase === "type" ||
+    phase === "exit";
+
+  const reachedSeparate =
+    phase === "separate" ||
+    phase === "slash" ||
+    phase === "compose" ||
+    phase === "type" ||
+    phase === "exit";
+
+  const reachedSlash =
+    phase === "slash" ||
+    phase === "compose" ||
+    phase === "type" ||
+    phase === "exit";
+
+  const composed =
+    phase === "compose" || phase === "type" || phase === "exit";
+
+  // Outer wrapper scale during the 3-stage zoom-in.
+  // After "rotate" it stays at scale 1 until "compose" shrinks it for the typed line.
+  const outerScale =
+    phase === "zoom1"
+      ? 0.35
+      : phase === "zoom2"
+        ? 0.65
+        : composed
+          ? 0.45
+          : 1;
+
+  // Horizontal shift: A is centered until composed -> moves left next to the text
+  const outerTranslateX = composed ? "-180px" : "0px";
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black ${
         phase === "exit" ? "intro-exit" : ""
       }`}
       style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}
     >
-      <div className="flex items-center gap-4">
-        {/* Outer wrapper handles the initial zoom-in */}
+      {/* Stage container */}
+      <div className="relative flex items-center justify-center w-full">
+        {/* Outer wrapper: handles zoom stages + final slide-left into composition */}
         <div
           style={{
-            animation: "introZoom 1.2s cubic-bezier(.2,.9,.3,1.15) both",
-            display: "inline-block",
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: `translate(calc(-50% + ${outerTranslateX}), -50%) scale(${outerScale})`,
+            transition:
+              "transform 600ms cubic-bezier(.7,0,.2,1)",
+            willChange: "transform",
           }}
         >
-          {/* Inner wrapper handles the 90deg clockwise rotation -> "<" */}
+          {/* Inner wrapper: handles the 90deg CW rotation -> "<" */}
           <div
             style={{
               position: "relative",
-              width: "120px",
-              height: "120px",
-              transform: morphed
-                ? "rotate(90deg) scale(0.55)"
-                : "rotate(0deg) scale(1)",
+              width: "180px",
+              height: "180px",
+              transform: reachedRotate ? "rotate(90deg)" : "rotate(0deg)",
               transformOrigin: "center",
-              transition:
-                "transform 900ms cubic-bezier(.7,0,.2,1)",
+              transition: "transform 700ms cubic-bezier(.7,0,.2,1)",
             }}
           >
             {/* Left leg of A */}
@@ -83,7 +149,7 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
                 position: "absolute",
                 left: "50%",
                 top: 0,
-                width: "10px",
+                width: "12px",
                 height: "100%",
                 background: "white",
                 transform: "translateX(-50%) rotate(-20deg)",
@@ -97,7 +163,7 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
                 position: "absolute",
                 left: "50%",
                 top: 0,
-                width: "10px",
+                width: "12px",
                 height: "100%",
                 background: "white",
                 transform: "translateX(-50%) rotate(20deg)",
@@ -105,58 +171,45 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
                 borderRadius: "2px",
               }}
             />
-            {/* Crossbar -> slash. Separates out and rotates ~ -65deg
-                so that, after the parent's +90deg rotation, it appears as "/". */}
+            {/* Crossbar -> slash.
+                - Stays in place during rotate
+                - Slides to the right during separate
+                - Rotates ~ -65deg during slash (after parent's +90deg, reads as "/") */}
             <div
               style={{
                 position: "absolute",
                 left: "50%",
                 top: "62%",
-                width: "62px",
-                height: "10px",
+                width: "78px",
+                height: "12px",
                 background: "white",
                 borderRadius: "2px",
-                transform: morphed
-                  ? "translate(60%, 30%) rotate(-65deg)"
-                  : "translate(-50%, -50%) rotate(0deg)",
+                transform: reachedSlash
+                  ? "translate(120%, 30%) rotate(-65deg)"
+                  : reachedSeparate
+                    ? "translate(120%, -50%) rotate(0deg)"
+                    : "translate(-50%, -50%) rotate(0deg)",
                 transformOrigin: "center",
-                transition: "transform 900ms cubic-bezier(.7,0,.2,1)",
+                transition: "transform 600ms cubic-bezier(.7,0,.2,1)",
               }}
             />
           </div>
         </div>
 
-        {/* Typed name */}
+        {/* Typed line — appears once composed.
+            Sits to the right of the </ symbol. */}
         <div
-          className="text-white text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap"
           style={{
-            minHeight: "1.2em",
-            opacity: phase === "type" || phase === "exit" ? 1 : 0,
-            transition: "opacity 300ms ease",
+            opacity: composed ? 1 : 0,
+            transition: "opacity 350ms ease 200ms",
+            transform: "translateX(40px)",
           }}
+          className="text-white text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap"
         >
           {typed}
-          {typed.length === fullName.length && <span>{">"}</span>}
-          {phase === "type" && (
-            <span className="animate-blink text-white">_</span>
-          )}
+          <span className="animate-blink text-white">_</span>
         </div>
       </div>
-
-      {/* Tagline — default/static */}
-      <div className="mt-10 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm md:text-base tracking-widest uppercase">
-        <span className="text-white">I build.</span>
-        <span className="text-accent">I scale.</span>
-        <span className="text-gradient">I ship software.</span>
-      </div>
-
-      <style>{`
-        @keyframes introZoom {
-          0%   { transform: scale(0) translateZ(-2000px); opacity: 0; filter: blur(24px); }
-          70%  { transform: scale(1.15); opacity: 1; filter: blur(0); }
-          100% { transform: scale(1); opacity: 1; filter: blur(0); }
-        }
-      `}</style>
     </div>
   );
 };
