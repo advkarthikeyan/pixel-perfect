@@ -1,97 +1,92 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
 
-interface IntroScreenProps {
-  onComplete: () => void;
-}
+// Register outside to ensure it's ready
+gsap.registerPlugin(TextPlugin);
 
-export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
-  const [phase, setPhase] = useState<"enter" | "exit">("enter");
-  const [typedName, setTypedName] = useState("");
-  const [visibleWords, setVisibleWords] = useState<number>(0);
+export default function App() {
+  // Use specific HTML types for TypeScript
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const crossbarRef = useRef<SVGLineElement | null>(null);
+  const textRef = useRef<HTMLSpanElement | null>(null);
 
-  const fullName = "Amirda Varshini M N";
-  const taglineWords = [
-    { text: "I build.", color: "text-primary" },
-    { text: "I scale.", color: "text-accent" },
-    { text: "I ship software.", color: "text-gradient" },
-  ];
-
-  const handleComplete = useCallback(onComplete, [onComplete]);
-
-  // Typewriter for name
   useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < fullName.length) {
-        setTypedName(fullName.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 80);
-    return () => clearInterval(interval);
-  }, []);
+    // Safety check: ensure all refs are bound before starting
+    if (!svgRef.current || !crossbarRef.current || !textRef.current) return;
 
-  // Stagger tagline words after name finishes
-  useEffect(() => {
-    const nameDuration = fullName.length * 80 + 400;
-    taglineWords.forEach((_, i) => {
-      setTimeout(() => setVisibleWords((v) => v + 1), nameDuration + i * 700);
+    const tl = gsap.timeline();
+
+    // 1. Initial Zoom
+    tl.fromTo(svgRef.current, 
+      { scale: 0, opacity: 0 }, 
+      { scale: 1, opacity: 1, duration: 1.2, ease: "back.out(1.7)" }
+    );
+
+    // 2. Rotate 90deg to form '<'
+    tl.to(svgRef.current, {
+      rotation: 90,
+      duration: 1,
+      ease: "power2.inOut",
+      delay: 0.5
     });
-  }, []);
 
-  // Exit after everything is shown
-  useEffect(() => {
-    const nameDuration = fullName.length * 80 + 400;
-    const taglineDuration = taglineWords.length * 700 + 800;
-    const totalDuration = nameDuration + taglineDuration + 600;
-    const exitTimer = setTimeout(() => setPhase("exit"), totalDuration);
-    const completeTimer = setTimeout(handleComplete, totalDuration + 800);
+    // 3. Separate the dash to form '/'
+    tl.to(crossbarRef.current, {
+      x: 45,
+      rotation: 20,
+      transformOrigin: "center",
+      duration: 0.7,
+      ease: "power2.out"
+    });
+
+    // 4. Typewriter effect
+    tl.to(textRef.current, {
+      duration: 2,
+      text: "Amirda varshini M N",
+      ease: "none"
+    });
+
+    // Cleanup to prevent memory leaks
     return () => {
-      clearTimeout(exitTimer);
-      clearTimeout(completeTimer);
+      tl.kill();
     };
-  }, [handleComplete]);
+  }, []);
 
   return (
-    <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-background intro-screen ${
-        phase === "exit" ? "intro-exit" : ""
-      }`}
-    >
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.06)_0%,transparent_70%)]" />
+    <div style={styles.container}>
+      <div style={styles.wrapper}>
+        <svg 
+          ref={svgRef} 
+          viewBox="0 0 100 100" 
+          style={styles.logo}
+        >
+          <line x1="50" y1="20" x2="20" y2="80" stroke="white" strokeWidth="4" strokeLinecap="round" />
+          <line x1="50" y1="20" x2="80" y2="80" stroke="white" strokeWidth="4" strokeLinecap="round" />
+          <line ref={crossbarRef} x1="35" y1="55" x2="65" y2="55" stroke="white" strokeWidth="4" strokeLinecap="round" />
+        </svg>
 
-      <div className="relative flex flex-col items-center gap-6">
-        {/* Big "A" letter */}
-        <div className="overflow-hidden">
-          <span className="intro-big-a font-display text-[10rem] md:text-[14rem] lg:text-[18rem] font-bold leading-none text-accent">
-            A
-          </span>
-        </div>
-
-        {/* Name with typewriter */}
-        <div className="h-10 md:h-12 flex items-center justify-center">
-          <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
-            {typedName}
-            <span className="animate-blink text-accent">|</span>
-          </h2>
-        </div>
-
-        {/* Tagline with staggered colored word reveal */}
-        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 min-h-[2rem]">
-          {taglineWords.map((word, i) => (
-            <span
-              key={i}
-              className={`font-mono-tag text-sm md:text-base tracking-widest intro-role-word ${
-                i < visibleWords ? "intro-role-word-visible" : ""
-              } ${word.color}`}
-            >
-              {word.text}
-            </span>
-          ))}
+        <div style={styles.textWrapper}>
+          <span ref={textRef} style={styles.monoText}></span>
+          <span style={styles.cursor}>_</span>
         </div>
       </div>
     </div>
   );
+}
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: { backgroundColor: 'black', height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' },
+  wrapper: { display: 'flex', alignItems: 'center', gap: '30px' },
+  logo: { width: '150px', height: '150px', overflow: 'visible' },
+  textWrapper: { color: 'white', fontSize: '2.5rem', display: 'flex', alignItems: 'center' },
+  monoText: { fontFamily: 'monospace' },
+  cursor: { fontFamily: 'monospace', fontWeight: 'bold', animation: 'blink 1s infinite step-end' }
 };
+
+// Global cursor animation
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement("style");
+  styleSheet.innerText = `@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`;
+  document.head.appendChild(styleSheet);
+}
