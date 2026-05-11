@@ -93,7 +93,7 @@ export const Experience = () => {
       <div className="absolute top-1/3 -right-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-2s" }} />
 
       <div className="container relative">
-        <p className="font-mono-tag mb-4 text-accent reveal-blur text-green-500" style={{ transitionDelay: "0.1s" }}>
+        <p className="font-mono-tag mb-4 text-accent reveal-blur text-rose-500" style={{ transitionDelay: "0.1s" }}>
           // Experience
         </p>
         <h2
