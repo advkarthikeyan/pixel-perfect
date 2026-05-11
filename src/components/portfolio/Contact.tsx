@@ -38,7 +38,7 @@ export const Contact = () => {
       <div className="absolute top-0 right-1/4 w-72 h-72 bg-accent/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-5s" }} />
 
       <div className="container relative">
-        <p className="font-mono-tag mb-4 text-accent reveal-blur" style={{ transitionDelay: "0.1s" }}>
+        <p className="font-mono-tag mb-4 text-accent reveal-blur text-green-500" style={{ transitionDelay: "0.1s" }}>
           // Contact
         </p>
         <h2
