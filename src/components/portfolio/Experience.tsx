@@ -93,7 +93,7 @@ export const Experience = () => {
       <div className="absolute top-1/3 -right-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-2s" }} />
 
       <div className="container relative">
-        <p className="font-mono-tag mb-4 text-accent reveal-blur text-rose-500" style={{ transitionDelay: "0.1s" }}>
+        <p className="font-mono-tag mb-4 text-accent reveal-blur text-pink" style={{ transitionDelay: "0.1s" }}>
           // Experience
         </p>
         <h2
@@ -148,7 +148,7 @@ const ExperienceCard = ({ exp, index }: { exp: typeof experiences[number]; index
               {exp.company} <span className="text-muted-foreground">· {exp.location}</span>
             </p>
           </div>
-          <span className="font-mono-tag text-accent shrink-0">{exp.period}</span>
+          <span className="font-mono-tag text-rose-500 shrink-0">{exp.period}</span>
         </div>
 
         <div className="space-y-8">

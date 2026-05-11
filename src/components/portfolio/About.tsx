@@ -39,7 +39,7 @@ export const About = () => {
       <div className="absolute bottom-0 left-0 w-56 h-56 bg-accent/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-3s" }} />
 
       <div className="container relative">
-        <p className="font-mono-tag mb-4 uppercase tracking-wider text-accent reveal-blur" style={{ transitionDelay: "0.1s" }}>
+        <p className="font-mono-tag mb-4 uppercase tracking-wider text-white reveal-blur" style={{ transitionDelay: "0.1s" }}>
           // ABOUT
         </p>
         <h2

@@ -3,7 +3,7 @@ import { useReveal } from "@/hooks/use-reveal";
 const groups: { title: string; color: string; items: string[] }[] = [
   {
     title: "Backend",
-    color: "text-primary",
+    color: "text-green-500",
     items: [".NET 8", "C#", "Web API", "Entity Framework", "ADO.NET", "MVC"],
   },
   {
@@ -13,12 +13,12 @@ const groups: { title: string; color: string; items: string[] }[] = [
   },
   {
     title: "Databases",
-    color: "text-purple-400",
+    color: "text-amber-300",
     items: ["SQL Server", "Oracle", "PostgreSQL", "MongoDB"],
   },
   {
     title: "Tools & DevOps",
-    color: "text-primary",
+    color: "text-rose-500",
     items: ["Azure DevOps", "GitHub", "TFS", "DevExpress", "Putty"],
   },
 ];
