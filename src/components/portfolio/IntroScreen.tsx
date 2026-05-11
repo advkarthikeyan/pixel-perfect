@@ -204,10 +204,10 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
             transition: "opacity 350ms ease 200ms",
             transform: "translateX(40px)",
           }}
-          className="text-white text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap"
+          className="text-slate-300 text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap"
         >
           {typed}
-          <span className="animate-blink text-white">_</span>
+          <span className="animate-blink text-slate-300">_</span>
         </div>
       </div>
     </div>
