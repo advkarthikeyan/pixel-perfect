@@ -201,6 +201,22 @@
   .dissolve-out .dissolve-char { opacity: 1; animation: char-dissolve-out 0.5s cubic-bezier(0.55, 0, 1, 0.45) forwards; }
   .dissolve-hold .dissolve-char { opacity: 1; }
 
+  /* Roll morph: each character rolls in (rotateX 90 -> 0 with morph blur),
+     holds, then rolls out (0 -> -90) on a per-char stagger */
+  @keyframes roll-char-in {
+    0%   { opacity: 0; transform: translateY(60%) rotateX(90deg) scale(0.7); filter: blur(6px); }
+    60%  { opacity: 1; filter: blur(0); }
+    100% { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0); }
+  }
+  @keyframes roll-char-out {
+    0%   { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0); }
+    100% { opacity: 0; transform: translateY(-60%) rotateX(-90deg) scale(0.7); filter: blur(6px); }
+  }
+  .roll-char { display: inline-block; opacity: 0; transform-origin: 50% 100%; backface-visibility: hidden; }
+  .roll-in .roll-char  { animation: roll-char-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .roll-out .roll-char { opacity: 1; animation: roll-char-out 0.5s cubic-bezier(0.55, 0, 1, 0.45) forwards; }
+  .roll-hold .roll-char { opacity: 1; }
+
   @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .animate-spin-slow { animation: spin-slow 20s linear infinite; }
 
