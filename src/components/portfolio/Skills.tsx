@@ -65,7 +65,7 @@ const EducationCard = () => {
       style={{ transitionDelay: "0.5s" }}
     >
       <div>
-        <p className="font-mono-tag mb-2 text-accent">// Education</p>
+        <p className="font-mono-tag text-accent animate-bounce-subtle text-amber-300">// Education</p>
         <h3 className="font-display text-2xl md:text-3xl group-hover:text-gradient transition-all duration-300">
           Master of Computer Applications (through BCA)
         </h3>
