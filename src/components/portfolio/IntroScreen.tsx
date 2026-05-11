@@ -1,41 +1,97 @@
 import { useEffect, useState, useCallback } from "react";
 
-// Register the text plugin for typewriter effect
-gsap.registerPlugin(TextPlugin);
+interface IntroScreenProps {
+  onComplete: () => void;
+}
 
-const runAnimation = () => {
-  const tl = gsap.timeline();
+export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
+  const [phase, setPhase] = useState<"enter" | "exit">("enter");
+  const [typedName, setTypedName] = useState("");
+  const [visibleWords, setVisibleWords] = useState<number>(0);
 
-  // 1. Initial State: Zoom A in towards the screen
-  tl.fromTo("#logo-svg", 
-    { scale: 0, opacity: 0 }, 
-    { scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.7)" }
+  const fullName = "Amirda Varshini M N";
+  const taglineWords = [
+    { text: "I build.", color: "text-primary" },
+    { text: "I scale.", color: "text-accent" },
+    { text: "I ship software.", color: "text-gradient" },
+  ];
+
+  const handleComplete = useCallback(onComplete, [onComplete]);
+
+  // Typewriter for name
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < fullName.length) {
+        setTypedName(fullName.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 80);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Stagger tagline words after name finishes
+  useEffect(() => {
+    const nameDuration = fullName.length * 80 + 400;
+    taglineWords.forEach((_, i) => {
+      setTimeout(() => setVisibleWords((v) => v + 1), nameDuration + i * 700);
+    });
+  }, []);
+
+  // Exit after everything is shown
+  useEffect(() => {
+    const nameDuration = fullName.length * 80 + 400;
+    const taglineDuration = taglineWords.length * 700 + 800;
+    const totalDuration = nameDuration + taglineDuration + 600;
+    const exitTimer = setTimeout(() => setPhase("exit"), totalDuration);
+    const completeTimer = setTimeout(handleComplete, totalDuration + 800);
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(completeTimer);
+    };
+  }, [handleComplete]);
+
+  return (
+    <div
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-background intro-screen ${
+        phase === "exit" ? "intro-exit" : ""
+      }`}
+    >
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.06)_0%,transparent_70%)]" />
+
+      <div className="relative flex flex-col items-center gap-6">
+        {/* Big "A" letter */}
+        <div className="overflow-hidden">
+          <span className="intro-big-a font-display text-[10rem] md:text-[14rem] lg:text-[18rem] font-bold leading-none text-accent">
+            A
+          </span>
+        </div>
+
+        {/* Name with typewriter */}
+        <div className="h-10 md:h-12 flex items-center justify-center">
+          <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
+            {typedName}
+            <span className="animate-blink text-accent">|</span>
+          </h2>
+        </div>
+
+        {/* Tagline with staggered colored word reveal */}
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 min-h-[2rem]">
+          {taglineWords.map((word, i) => (
+            <span
+              key={i}
+              className={`font-mono-tag text-sm md:text-base tracking-widest intro-role-word ${
+                i < visibleWords ? "intro-role-word-visible" : ""
+              } ${word.color}`}
+            >
+              {word.text}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
-
-  // 2. Rotate the entire 'A' 90 degrees to form '<'
-  tl.to("#logo-svg", {
-    rotation: 90,
-    duration: 1,
-    ease: "power2.inOut",
-    delay: 0.5
-  });
-
-  // 3. Move the Crossbar out to the right and rotate it to form '/'
-  tl.to("#crossbar", {
-    x: 60,           // Move right
-    rotation: 20,    // Tilt into a slash
-    transformOrigin: "center",
-    duration: 0.8,
-    ease: "power2.out"
-  });
-
-  // 4. Typewriter Animation for the name
-  tl.to("#typing-text", {
-    duration: 2,
-    text: "Amirda varshini M N",
-    ease: "none",
-    delay: 0.2
-  });
 };
-
-window.onload = runAnimation;
