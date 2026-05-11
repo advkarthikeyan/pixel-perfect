@@ -28,22 +28,23 @@ const KineticTagline = () => {
 
   const animClass =
     phase === "dissolve-in"
-      ? "dissolve-in"
+      ? "roll-in"
       : phase === "dissolve-out"
-      ? "dissolve-out"
-      : "dissolve-hold";
+      ? "roll-out"
+      : "roll-hold";
 
   return (
     <div
-      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-amber-300 h-[1.3em] overflow-hidden"
+      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 h-[1.3em] overflow-hidden"
+      style={{ color: "#ff4c6a" }}
       aria-label="I build. I scale. I ship software."
     >
-      <div className={`dissolve-word ${animClass}`}>
+      <div className={animClass}>
         {phrases[index].split("").map((char, i) => (
           <span
             key={i}
-            className="inline-block dissolve-char"
-            style={{ animationDelay: `${i * 0.03}s` }}
+            className="inline-block roll-char"
+            style={{ animationDelay: `${i * 0.04}s` }}
           >
             {char === " " ? "\u00A0" : char}
           </span>
