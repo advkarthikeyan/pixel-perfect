@@ -1,55 +1,39 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 interface IntroScreenProps {
   onComplete: () => void;
 }
 
-// Storyboard phases (mirrors the 12-frame reference)
-//  zoom1 -> zoom2 -> zoom3 (A grows in 3 stages, centered)
-//  rotate            (A rotates 90deg CW, still intact -> looks like ◁)
-//  separate          (crossbar slides out to the right)
-//  slash             (the separated dash rotates ~ -65deg to become /)
-//  compose           (the </ shrinks and shifts to the left of the text area)
-//  type              (typewriter "Amirda varshini M N" with blinking _)
-//  exit              (whole screen fades out)
 type Phase =
-  | "zoom1"
-  | "zoom2"
-  | "zoom3"
-  | "rotate"
-  | "separate"
-  | "slash"
-  | "compose"
-  | "type"
-  | "exit";
+  | "zoom1" | "zoom2" | "zoom3" | "rotate"
+  | "separate" | "slash" | "compose" | "type" | "exit";
 
+// FASTER SCHEDULE: Reduced the at: values to make the page load action happen sooner
 const SCHEDULE: { phase: Phase; at: number }[] = [
   { phase: "zoom1", at: 0 },
-  { phase: "zoom2", at: 350 },
-  { phase: "zoom3", at: 750 },
-  { phase: "rotate", at: 1400 },
-  { phase: "separate", at: 2100 },
-  { phase: "slash", at: 2600 },
-  { phase: "compose", at: 3100 },
-  { phase: "type", at: 3500 },
+  { phase: "zoom2", at: 200 }, // Faster entry
+  { phase: "zoom3", at: 500 }, // Full size sooner
+  { phase: "rotate", at: 1100 },
+  { phase: "separate", at: 1700 },
+  { phase: "slash", at: 2100 },
+  { phase: "compose", at: 2500 },
+  { phase: "type", at: 2900 },
 ];
 
 export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
   const [phase, setPhase] = useState<Phase>("zoom1");
   const [typed, setTyped] = useState("");
 
-  const fullName = "Amirda varshini M N";
+  const fullName = "Amirda Varshini M N>";
   const handleComplete = useCallback(onComplete, [onComplete]);
 
-  // Drive phases on a fixed schedule
   useEffect(() => {
     const timers = SCHEDULE.map(({ phase: p, at }) =>
-      setTimeout(() => setPhase(p), at),
+      setTimeout(() => setPhase(p), at)
     );
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  // Typewriter
   useEffect(() => {
     if (phase !== "type") return;
     let i = 0;
@@ -57,159 +41,127 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
       i += 1;
       setTyped(fullName.slice(0, i));
       if (i >= fullName.length) clearInterval(id);
-    }, 95);
+    }, 70); // Slightly faster typing for better UX
     return () => clearInterval(id);
-  }, [phase]);
+  }, [phase, fullName]);
 
-  // Exit / complete
   useEffect(() => {
     const typeStart = SCHEDULE[SCHEDULE.length - 1].at;
-    const total = typeStart + fullName.length * 95 + 1800;
+    const total = typeStart + fullName.length * 70 + 1200;
     const exitT = setTimeout(() => setPhase("exit"), total);
-    const doneT = setTimeout(handleComplete, total + 700);
+    const doneT = setTimeout(handleComplete, total + 500);
     return () => {
       clearTimeout(exitT);
       clearTimeout(doneT);
     };
-  }, [handleComplete]);
+  }, [handleComplete, fullName.length]);
 
-  const reachedRotate =
-    phase === "rotate" ||
-    phase === "separate" ||
-    phase === "slash" ||
-    phase === "compose" ||
-    phase === "type" ||
-    phase === "exit";
+  const reachedRotate = ["rotate", "separate", "slash", "compose", "type", "exit"].includes(phase);
+  const reachedSeparate = ["separate", "slash", "compose", "type", "exit"].includes(phase);
+  const reachedSlash = ["slash", "compose", "type", "exit"].includes(phase);
+  const composed = ["compose", "type", "exit"].includes(phase);
 
-  const reachedSeparate =
-    phase === "separate" ||
-    phase === "slash" ||
-    phase === "compose" ||
-    phase === "type" ||
-    phase === "exit";
-
-  const reachedSlash =
-    phase === "slash" ||
-    phase === "compose" ||
-    phase === "type" ||
-    phase === "exit";
-
-  const composed =
-    phase === "compose" || phase === "type" || phase === "exit";
-
-  // Outer wrapper scale during the 3-stage zoom-in.
-  // After "rotate" it stays at scale 1 until "compose" shrinks it for the typed line.
   const outerScale =
-    phase === "zoom1"
-      ? 0.35
-      : phase === "zoom2"
-        ? 0.65
-        : composed
-          ? 0.45
-          : 1;
+    phase === "zoom1" ? 0 : 
+    phase === "zoom2" ? 0.6 : // Starting at 0.6 feels more energetic
+    phase === "zoom3" ? 1 :
+    composed ? 0.45 : 1;
 
-  // Horizontal shift: A is centered until composed -> moves left next to the text
-  const outerTranslateX = composed ? "-180px" : "0px";
+  const outerOpacity = phase === "zoom1" ? 0 : 1;
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black ${
-        phase === "exit" ? "intro-exit" : ""
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black transition-opacity duration-500 ${
+        phase === "exit" ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
-      style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}
+      style={{ fontFamily: "'JetBrains Mono', monospace" }}
     >
-      {/* Stage container */}
-      <div className="relative flex items-center justify-center w-full">
-        {/* Outer wrapper: handles zoom stages + final slide-left into composition */}
+      <div className="flex items-center justify-center">
+        
+        {/* LOGO BOX */}
         <div
           style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: `translate(calc(-50% + ${outerTranslateX}), -50%) scale(${outerScale})`,
-            transition:
-              "transform 600ms cubic-bezier(.7,0,.2,1)",
-            willChange: "transform",
+            transform: `scale(${outerScale})`,
+            opacity: outerOpacity,
+            // PREMIUM SMOOTH ZOOM: Use cubic-bezier(0.34, 1.56, 0.64, 1) for a subtle "spring" effect
+            transition: "transform 800ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 400ms ease-out",
+            width: "180px",
+            height: "180px",
+            marginRight: composed ? "-50px" : "0px", 
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
           }}
         >
-          {/* Inner wrapper: handles the 90deg CW rotation -> "<" */}
           <div
             style={{
               position: "relative",
               width: "180px",
               height: "180px",
-              transform: reachedRotate ? "rotate(90deg)" : "rotate(0deg)",
+              transform: reachedRotate ? "rotate(90deg)" : "rotate(180deg)",
               transformOrigin: "center",
-              transition: "transform 700ms cubic-bezier(.7,0,.2,1)",
+              transition: "transform 900ms cubic-bezier(0.65, 0, 0.35, 1)",
             }}
           >
             {/* Left leg of A */}
-            <div
-              style={{
-                position: "absolute",
-                left: "50%",
-                top: 0,
-                width: "12px",
-                height: "100%",
-                background: "rgb(203, 213, 225)", // slate-300
-                transform: "translateX(-50%) rotate(-20deg)",
-                transformOrigin: "bottom center",
-                borderRadius: "2px",
-              }}
-            />
+            <div style={{
+              position: "absolute", left: "50%", top: 0, width: "12px", height: "100%",
+              background: "rgb(203, 213, 225)", borderRadius: "2px",
+              transform: "translateX(-50%) rotate(-20deg)", transformOrigin: "bottom center"
+            }} />
+            
             {/* Right leg of A */}
-            <div
-              style={{
-                position: "absolute",
-                left: "50%",
-                top: 0,
-                width: "12px",
-                height: "100%",
-                background: "rgb(203, 213, 225)", // slate-300
-                transform: "translateX(-50%) rotate(20deg)",
-                transformOrigin: "bottom center",
-                borderRadius: "2px",
-              }}
-            />
-            {/* Crossbar -> slash.
-                - Stays in place during rotate
-                - Slides to the right during separate
-                - Rotates ~ -65deg during slash (after parent's +90deg, reads as "/") */}
+            <div style={{
+              position: "absolute", left: "50%", top: 0, width: "12px", height: "100%",
+              background: "rgb(203, 213, 225)", borderRadius: "2px",
+              transform: "translateX(-50%) rotate(20deg)", transformOrigin: "bottom center"
+            }} />
+            
+            {/* CROSSBAR -> SLASH */}
             <div
               style={{
                 position: "absolute",
                 left: "50%",
                 top: "62%",
-                width: "78px",
+                width: "118px",
                 height: "12px",
-                background: "rgb(203, 213, 225)", // slate-300
+                background: "rgb(203, 213, 225)",
                 borderRadius: "2px",
                 transform: reachedSlash
-                  ? "translate(120%, 30%) rotate(-65deg)"
+                  ? "translate(-50%, -1200%) rotate(15deg)" 
                   : reachedSeparate
-                    ? "translate(120%, -50%) rotate(0deg)"
-                    : "translate(-50%, -50%) rotate(0deg)",
+                    ? "translate(120%, -250%) rotate(0deg)"
+                    : "translate(-50%, -250%) rotate(0deg)",
                 transformOrigin: "center",
-                transition: "transform 600ms cubic-bezier(.7,0,.2,1)",
+                transition: "transform 700ms cubic-bezier(0.4, 0, 0.2, 1)",
               }}
             />
           </div>
         </div>
 
-        {/* Typed line — appears once composed.
-            Sits to the right of the </ symbol. */}
+        {/* TEXT AREA */}
         <div
           style={{
+            width: composed ? "auto" : "0px",
             opacity: composed ? 1 : 0,
-            transition: "opacity 350ms ease 200ms",
-            transform: "translateX(40px)",
+            overflow: "hidden",
+            marginLeft: composed ? "20px" : "-20px", 
+            transition: "all 600ms cubic-bezier(0.23, 1, 0.32, 1)",
+            display: "flex",
+            alignItems: "center"
           }}
-          className="text-slate-300 text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap"
+          className="text-slate-300 text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight whitespace-nowrap"
         >
           {typed}
-          <span className="animate-blink text-slate-300">_</span>
+          <span className="animate-pulse ml-1">_</span>
         </div>
       </div>
+
+      <style>{`
+        @keyframes blink { 50% { opacity: 0; } }
+        .animate-pulse { animation: blink 1s step-end infinite; }
+      `}</style>
     </div>
   );
 };
