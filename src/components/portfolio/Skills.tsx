@@ -32,7 +32,7 @@ export const Skills = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/3 rounded-full blur-3xl animate-morph" />
 
       <div className="container relative">
-        <p className="font-mono-tag mb-4 text-accent reveal-blur" style={{ transitionDelay: "0.1s" }}>
+        <p className="font-mono-tag mb-4 text-accent reveal-blur text-green-500" style={{ transitionDelay: "0.1s" }}>
           // Skills
         </p>
         <h2
