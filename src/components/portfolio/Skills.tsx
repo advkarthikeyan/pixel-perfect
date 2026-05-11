@@ -71,7 +71,7 @@ const EducationCard = () => {
         </h3>
         <p className="text-muted-foreground mt-1">Bishop Heber College, Trichy, Tamil Nadu</p>
       </div>
-      <span className="font-mono-tag text-accent animate-bounce-subtle">April 2018</span>
+      <span className="font-mono-tag text-rose-500 animate-bounce-subtle">April 2018</span>
       <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-shimmer pointer-events-none" />
     </div>
   );
