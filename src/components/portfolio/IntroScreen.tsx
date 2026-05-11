@@ -151,7 +151,7 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
                 top: 0,
                 width: "12px",
                 height: "100%",
-                background: "white",
+                background: "rgb(203, 213, 225)", // slate-300
                 transform: "translateX(-50%) rotate(-20deg)",
                 transformOrigin: "bottom center",
                 borderRadius: "2px",
@@ -165,7 +165,7 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
                 top: 0,
                 width: "12px",
                 height: "100%",
-                background: "white",
+                background: "rgb(203, 213, 225)", // slate-300
                 transform: "translateX(-50%) rotate(20deg)",
                 transformOrigin: "bottom center",
                 borderRadius: "2px",
@@ -182,7 +182,7 @@ export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
                 top: "62%",
                 width: "78px",
                 height: "12px",
-                background: "white",
+                background: "rgb(203, 213, 225)", // slate-300
                 borderRadius: "2px",
                 transform: reachedSlash
                   ? "translate(120%, 30%) rotate(-65deg)"
