@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import { TextPlugin } from "gsap/TextPlugin";
 
 // Register the text plugin for typewriter effect
 gsap.registerPlugin(TextPlugin);
