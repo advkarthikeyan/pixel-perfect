@@ -3,7 +3,7 @@ import { useReveal } from "@/hooks/use-reveal";
 const groups: { title: string; color: string; items: string[] }[] = [
   {
     title: "Backend",
-    color: "text-green-500",
+    color: "text-primary",
     items: [".NET 8", "C#", "Web API", "Entity Framework", "ADO.NET", "MVC"],
   },
   {
@@ -13,12 +13,12 @@ const groups: { title: string; color: string; items: string[] }[] = [
   },
   {
     title: "Databases",
-    color: "text-amber-300",
+    color: "text-purple-400",
     items: ["SQL Server", "Oracle", "PostgreSQL", "MongoDB"],
   },
   {
     title: "Tools & DevOps",
-    color: "text-rose-500",
+    color: "text-primary",
     items: ["Azure DevOps", "GitHub", "TFS", "DevExpress", "Putty"],
   },
 ];
@@ -32,7 +32,7 @@ export const Skills = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/3 rounded-full blur-3xl animate-morph" />
 
       <div className="container relative">
-        <p className="font-mono-tag mb-4 text-accent reveal-blur text-rose-500" style={{ transitionDelay: "0.1s" }}>
+        <p className="font-mono-tag mb-4 text-accent reveal-blur" style={{ transitionDelay: "0.1s" }}>
           // Skills
         </p>
         <h2
@@ -65,13 +65,13 @@ const EducationCard = () => {
       style={{ transitionDelay: "0.5s" }}
     >
       <div>
-        <p className="font-mono-tag text-accent animate-bounce-subtle text-amber-300">// Education</p>
+        <p className="font-mono-tag mb-2 text-accent">// Education</p>
         <h3 className="font-display text-2xl md:text-3xl group-hover:text-gradient transition-all duration-300">
           Master of Computer Applications (through BCA)
         </h3>
         <p className="text-muted-foreground mt-1">Bishop Heber College, Trichy, Tamil Nadu</p>
       </div>
-      <span className="font-mono-tag text-rose-500 animate-bounce-subtle">April 2018</span>
+      <span className="font-mono-tag text-accent animate-bounce-subtle">April 2018</span>
       <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-shimmer pointer-events-none" />
     </div>
   );
