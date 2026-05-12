@@ -41,9 +41,9 @@ export const Navbar = () => {
       }`}
     >
       <nav className="container flex items-center justify-between gap-8">
-        <a href="#home" className="font-display text-2xl font-semibold group">
-          <span className="hover:text-accent transition-colors duration-300 text-fuchsia-600">A</span>
-          <span className="hover:text-accent transition-colors duration-300 text-fuchsia-600">mirda Varshini M N</span>
+        <a href="#home" className="font-display text-2xl group">
+          <span className="font-normal text-accent transition-colors duration-300">A</span>
+          <span className="font-semibold text-primary hover:text-accent transition-colors duration-300">mirda Varshini M N</span>
         </a>
 
         <ul className="hidden lg:flex items-center gap-6 lg:gap-8 text-sm text-muted-foreground absolute left-1/2 -translate-x-1/2">
