@@ -1,53 +1,29 @@
 import { Linkedin, Mail, Phone, Briefcase, ChevronDown } from "lucide-react";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import profile from "@/assets/profile.png";
 
 const phrases = ["I build.", "I scale.", "I ship software."];
 
 const KineticTagline = () => {
-  const [phase, setPhase] = useState<"dissolve-in" | "hold" | "dissolve-out">("dissolve-in");
-  const [index, setIndex] = useState(0);
-
-  const next = useCallback(() => {
-    setPhase("dissolve-out");
-    setTimeout(() => {
-      setIndex((i) => (i + 1) % phrases.length);
-      setPhase("dissolve-in");
-    }, 600);
-  }, []);
-
-  useEffect(() => {
-    if (phase === "dissolve-in") {
-      const t = setTimeout(() => setPhase("hold"), 700);
-      return () => clearTimeout(t);
-    }
-    if (phase === "hold") {
-      const t = setTimeout(next, 1800);
-      return () => clearTimeout(t);
-    }
-  }, [phase, next]);
-
-  const animClass =
-    phase === "dissolve-in"
-      ? "dissolve-in"
-      : phase === "dissolve-out"
-      ? "dissolve-out"
-      : "dissolve-hold";
-
+  const colors = ["text-amber-300", "text-accent", "text-primary"];
   return (
     <div
-      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-amber-300 h-[1.3em] overflow-hidden"
+      className="mb-8 h-[1.6em] overflow-hidden"
       aria-label="I build. I scale. I ship software."
     >
-      <div className={`dissolve-word ${animClass}`}>
-        {phrases[index].split("").map((char, i) => (
-          <span
-            key={i}
-            className="inline-block dissolve-char"
-            style={{ animationDelay: `${i * 0.03}s` }}
-          >
-            {char === " " ? "\u00A0" : char}
-          </span>
+      <div className="roll-march font-display text-xl md:text-2xl lg:text-3xl font-semibold">
+        {Array.from({ length: 2 }).map((_, copy) => (
+          <div key={copy} className="flex items-center gap-10 pr-10">
+            {phrases.map((p, i) => (
+              <span
+                key={`${copy}-${i}`}
+                className={`roll-march-item whitespace-nowrap ${colors[i % colors.length]}`}
+                style={{ animationDelay: `${i * 0.15}s` }}
+              >
+                {p}
+              </span>
+            ))}
+          </div>
         ))}
       </div>
     </div>
