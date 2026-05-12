@@ -2,30 +2,72 @@ import { Linkedin, Mail, Phone, Briefcase, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import profile from "@/assets/profile.png";
 
-const phrases = ["I build.", "I scale.", "I ship software."];
-
 const KineticTagline = () => {
-  const colors = ["text-amber-300", "text-accent", "text-primary"];
+  // Stages: 0 (build), 1 (build + scale), 2 (roll-out both), 3 (ship), 4 (roll-out ship)
+  const [stage, setStage] = useState(0);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (stage === 0) {
+      // "I build" appears and holds
+      timer = setTimeout(() => setStage(1), 1500);
+    } else if (stage === 1) {
+      // "I scale" appears beside it and both hold
+      timer = setTimeout(() => setStage(2), 1500);
+    } else if (stage === 2) {
+      // Both roll out together
+      timer = setTimeout(() => setStage(3), 600);
+    } else if (stage === 3) {
+      // "I ship software" appears alone
+      timer = setTimeout(() => setStage(4), 2000);
+    } else if (stage === 4) {
+      // "I ship software" rolls out and loop resets
+      timer = setTimeout(() => setStage(0), 600);
+    }
+
+    return () => clearTimeout(timer);
+  }, [stage]);
+
+  const renderChars = (text: string) => {
+    return text.split("").map((char, i) => (
+      <span
+        key={i}
+        className="inline-block roll-char"
+        style={{ animationDelay: `${i * 0.01}s` }}
+      >
+        {char === " " ? "\u00A0" : char}
+      </span>
+    ));
+  };
+
   return (
     <div
-      className="mb-8 h-[1.6em] overflow-hidden"
+      className="font-display text-xl md:text-2xl lg:text-3xl font-semibold mb-8 h-[1.3em] overflow-hidden flex gap-3"
+      style={{ color: "#ff4c6a" }}
       aria-label="I build. I scale. I ship software."
     >
-      <div className="roll-march font-display text-xl md:text-2xl lg:text-3xl font-semibold">
-        {Array.from({ length: 2 }).map((_, copy) => (
-          <div key={copy} className="flex items-center gap-10 pr-10">
-            {phrases.map((p, i) => (
-              <span
-                key={`${copy}-${i}`}
-                className={`roll-march-item whitespace-nowrap ${colors[i % colors.length]}`}
-                style={{ animationDelay: `${i * 0.15}s` }}
-              >
-                {p}
-              </span>
-            ))}
+      {/* Container for I build & I scale */}
+      {(stage === 0 || stage === 1 || stage === 2) && (
+        <>
+          <div className={stage === 2 ? "roll-out" : "roll-in"}>
+            {renderChars("I build.")}
           </div>
-        ))}
-      </div>
+          
+          {stage >= 1 && (
+            <div className={stage === 2 ? "roll-out" : "roll-in"}>
+              {renderChars("I scale.")}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Container for I ship software */}
+      {(stage === 3 || stage === 4) && (
+        <div className={stage === 4 ? "roll-out" : "roll-in"}>
+          {renderChars("I ship software.")}
+        </div>
+      )}
     </div>
   );
 };
@@ -75,7 +117,7 @@ export const Hero = () => {
 
       <div className="container grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
         <div>
-          {/* Status badge - staggered entrance */}
+          {/* Status badge */}
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card/40 mb-8 animate-slide-up hover-glow-border cursor-default"
             style={{ animationDelay: "0ms" }}
@@ -87,25 +129,22 @@ export const Hero = () => {
             <span className="text-xs text-slate-200">Open to Full Stack Developer opportunities</span>
           </div>
 
-          {/* Tech tags - staggered */}
+          {/* Tech tags */}
           <p
             className="font-mono text-white mb-6 uppercase tracking-wider animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="text-white">code</span> · <span className="text-white">design</span> · <span className="text-white">ship</span>
+            <span className="font-serif text-slate-400">code</span> · <span className="font-serif text-slate-400">design</span> · <span className="font-serif text-slate-400">ship</span>
           </p>
 
-          {/* Main heading - Full Stack Dev_ with typing ELOPER */}
           <h1 className="font-sans font-black uppercase tracking-tight text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-6 animate-clip-reveal" style={{ animationDelay: "0.3s" }}>
             <span className="block text-foreground">Full</span>
             <span className="block text-foreground">Stack</span>
             <TypingDev />
           </h1>
 
-          {/* Kinetic typography tagline - text dissolve */}
           <KineticTagline />
 
-          {/* Description - blur in */}
           <p
             className="text-lg text-muted-foreground max-w-xl mb-10 leading-7 tracking-normal whitespace-normal [word-spacing:0] sm:leading-relaxed text-justify animate-blur-in"
             style={{ animationDelay: "0.5s" }}
@@ -116,7 +155,6 @@ export const Hero = () => {
             Innovative software engineer dedicated to high-quality data and operational excellence. Expert at bridging the gap between complex backend logic and intuitive frontend usability, utilizing analytical insights to solve business challenges and improve system performance.
           </p>
 
-          {/* CTA buttons - scale in */}
           <div className="flex flex-wrap items-center gap-4 mb-10 animate-scale-in" style={{ animationDelay: "0.6s" }}>
             <a
               href="#experience"
@@ -133,7 +171,6 @@ export const Hero = () => {
             </a>
           </div>
 
-          {/* Social icons - staggered scale in */}
           <div className="flex items-center gap-5">
             <SocialIcon href="https://www.linkedin.com/in/amirda-varshini1114vakkv/" label="LinkedIn" delay={0.7}>
               <Linkedin className="w-4 h-4" />
@@ -150,13 +187,9 @@ export const Hero = () => {
           </div>
         </div>
 
-        {/* Profile image - slide in from right */}
         <div className="relative flex justify-center lg:justify-end lg:-mt-16 animate-slide-in-right" style={{ animationDelay: "0.4s" }}>
           <div className="relative">
-            {/* Animated glow behind image */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-accent/30 blur-3xl rounded-full animate-pulse" style={{ animationDuration: "4s" }} />
-
-            {/* Spinning border ring */}
             <div className="absolute -inset-3 rounded-full border border-primary/20 animate-spin-slow" />
             <div className="absolute -inset-6 rounded-full border border-dashed border-accent/10 animate-spin-slow" style={{ animationDirection: "reverse" }} />
 
@@ -198,7 +231,6 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Marquee tech strip */}
       <div className="mt-20 overflow-hidden border-y border-border py-6 bg-card/20">
         <div className="marquee font-mono-tag text-muted-foreground">
           {Array.from({ length: 2 }).map((_, i) => (
@@ -214,7 +246,6 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-subtle">
         <a href="#about" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
           <span className="font-mono-tag text-[10px]">SCROLL</span>
@@ -259,7 +290,7 @@ const FloatingTag = ({
     secondary: "text-secondary",
     purple: "text-purple-400",
     amber: "font-mono-tag text-green-400",
-    pink: "font-mono-tag text-violet-300",
+    pink: "font-mono-tag text-violet-500",
     rose: "font-mono-tag text-rose-500",
   }[color];
   return (

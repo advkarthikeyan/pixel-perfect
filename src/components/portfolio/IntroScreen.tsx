@@ -1,97 +1,223 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 interface IntroScreenProps {
   onComplete: () => void;
 }
 
+type Phase =
+  | "zoom1" | "zoom2" | "zoom3" | "rotate"
+  | "separate" | "slash" | "compose" | "type" 
+  | "slogan1" | "slogan2" | "slogan3" | "exit";
+
+const PRIMARY_COLOR = "#FFFFFF";
+const ACCENT_COLOR = "#bd27d1";
+
 export const IntroScreen = ({ onComplete }: IntroScreenProps) => {
-  const [phase, setPhase] = useState<"enter" | "exit">("enter");
-  const [typedName, setTypedName] = useState("");
-  const [visibleWords, setVisibleWords] = useState<number>(0);
+  const [phase, setPhase] = useState<Phase>("zoom1");
+  const [typed, setTyped] = useState("");
+  const [showMirror, setShowMirror] = useState(false);
 
   const fullName = "Amirda Varshini M N";
-  const taglineWords = [
-    { text: "I build.", color: "text-primary" },
-    { text: "I scale.", color: "text-accent" },
-    { text: "I ship software.", color: "text-gradient" },
-  ];
-
   const handleComplete = useCallback(onComplete, [onComplete]);
 
-  // Typewriter for name
   useEffect(() => {
+    const schedule: { p: Phase; at: number }[] = [
+      { p: "zoom1", at: 0 },
+      { p: "zoom2", at: 200 },
+      { p: "zoom3", at: 500 },
+      { p: "rotate", at: 1100 },
+      { p: "separate", at: 1700 },
+      { p: "slash", at: 2100 },
+      { p: "compose", at: 2500 },
+      { p: "type", at: 2900 },
+    ];
+
+    const timers = schedule.map(({ p, at }) =>
+      setTimeout(() => setPhase(p), at)
+    );
+
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  useEffect(() => {
+    if (phase !== "type") return;
     let i = 0;
-    const interval = setInterval(() => {
-      if (i < fullName.length) {
-        setTypedName(fullName.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(interval);
+    const typingInterval = setInterval(() => {
+      i += 1;
+      setTyped(fullName.slice(0, i));
+      if (i >= fullName.length) {
+        clearInterval(typingInterval);
+        
+        setTimeout(() => setShowMirror(true), 200);  
+        setTimeout(() => setPhase("slogan1"), 800);    
+        setTimeout(() => setPhase("slogan2"), 1300);   
+        setTimeout(() => setPhase("slogan3"), 1800);   
+        setTimeout(() => setPhase("exit"), 3800);      
+        setTimeout(handleComplete, 4800);              
       }
-    }, 80);
-    return () => clearInterval(interval);
-  }, []);
+    }, 70);
 
-  // Stagger tagline words after name finishes
-  useEffect(() => {
-    const nameDuration = fullName.length * 80 + 400;
-    taglineWords.forEach((_, i) => {
-      setTimeout(() => setVisibleWords((v) => v + 1), nameDuration + i * 700);
-    });
-  }, []);
+    return () => clearInterval(typingInterval);
+  }, [phase, fullName, handleComplete]);
 
-  // Exit after everything is shown
-  useEffect(() => {
-    const nameDuration = fullName.length * 80 + 400;
-    const taglineDuration = taglineWords.length * 700 + 800;
-    const totalDuration = nameDuration + taglineDuration + 600;
-    const exitTimer = setTimeout(() => setPhase("exit"), totalDuration);
-    const completeTimer = setTimeout(handleComplete, totalDuration + 800);
-    return () => {
-      clearTimeout(exitTimer);
-      clearTimeout(completeTimer);
-    };
-  }, [handleComplete]);
+  const reachedRotate = ["rotate", "separate", "slash", "compose", "type", "slogan1", "slogan2", "slogan3", "exit"].includes(phase);
+  const reachedSlash = ["slash", "compose", "type", "slogan1", "slogan2", "slogan3", "exit"].includes(phase);
+  const composed = ["compose", "type", "slogan1", "slogan2", "slogan3", "exit"].includes(phase);
+  
+  const outerScale =
+    phase === "zoom1" ? 0 :
+    phase === "zoom2" ? 0.6 :
+    phase === "zoom3" ? 1 :
+    reachedRotate && !composed ? 0.7 :
+    composed ? 0.45 : 1;
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-background intro-screen ${
-        phase === "exit" ? "intro-exit" : ""
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black transition-transform duration-1000 ease-[cubic-bezier(0.82,0,0.18,1)] ${
+        phase === "exit" ? "-translate-y-full" : "translate-y-0"
       }`}
+      style={{ fontFamily: "'JetBrains Mono', monospace" }}
     >
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.06)_0%,transparent_70%)]" />
-
-      <div className="relative flex flex-col items-center gap-6">
-        {/* Big "A" letter */}
-        <div className="overflow-hidden">
-          <span className="intro-big-a font-display text-[10rem] md:text-[14rem] lg:text-[18rem] font-bold leading-none text-accent">
-            A
-          </span>
-        </div>
-
-        {/* Name with typewriter */}
-        <div className="h-10 md:h-12 flex items-center justify-center">
-          <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
-            {typedName}
-            <span className="animate-blink text-accent">|</span>
-          </h2>
-        </div>
-
-        {/* Tagline with staggered colored word reveal */}
-        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 min-h-[2rem]">
-          {taglineWords.map((word, i) => (
-            <span
-              key={i}
-              className={`font-mono-tag text-sm md:text-base tracking-widest intro-role-word ${
-                i < visibleWords ? "intro-role-word-visible" : ""
-              } ${word.color}`}
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex items-center justify-center">
+          
+          {/* LEFT LOGO BOX */}
+          <div
+            style={{
+              transform: `scale(${outerScale})`,
+              opacity: phase === "zoom1" ? 0 : 1,
+              transition: "transform 1000ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 400ms ease-out",
+              width: "180px",
+              height: "180px",
+              marginRight: composed ? "-60px" : "0px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                width: "180px",
+                height: "180px",
+                transform: reachedRotate ? "rotate(90deg)" : "rotate(180deg)",
+                transformOrigin: "center",
+                transition: "transform 900ms cubic-bezier(0.65, 0, 0.35, 1)",
+              }}
             >
-              {word.text}
-            </span>
-          ))}
+              <div style={{ position: "absolute", left: "50%", top: 0, width: "12px", height: "100%", background: PRIMARY_COLOR, borderRadius: "2px", transform: "translateX(-50%) rotate(-20deg)", transformOrigin: "bottom center" }} />
+              <div style={{ position: "absolute", left: "50%", top: 0, width: "12px", height: "100%", background: PRIMARY_COLOR, borderRadius: "2px", transform: "translateX(-50%) rotate(20deg)", transformOrigin: "bottom center" }} />
+              
+              <div
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  top: "62%",
+                  width: "118px",
+                  height: "12px",
+                  background: ACCENT_COLOR,
+                  borderRadius: "2px",
+                  transform: reachedSlash
+                    ? "translate(-50%, -1200%) rotate(15deg)"
+                    : phase === "separate"
+                    ? "translate(-50%, -250%) rotate(0deg)"
+                    : "translate(-50%, -250%) rotate(0deg)",
+                  transformOrigin: "center",
+                  transition: "transform 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* NAME AREA */}
+          <div
+            style={{
+              width: composed ? "auto" : "0",
+              opacity: composed ? 1 : 0,
+              overflow: "hidden",
+              marginLeft: `${composed ? 30 : -20}px`,
+              transition: "all 600ms cubic-bezier(0.23, 1, 0.32, 1)",
+              display: "flex",
+              alignItems: "center",
+            }}
+            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight whitespace-nowrap"
+          >
+            {typed.split("").map((char, idx) => (
+              <span key={idx} style={{ color: PRIMARY_COLOR, whiteSpace: "pre" }}>{char}</span>
+            ))}
+            {!showMirror && <span className="animate-pulse ml-1 text-white">_</span>}
+          </div>
+
+          {/* RIGHT MIRROR LOGO */}
+          <div
+            style={{
+              transform: "scale(0.45)",
+              opacity: showMirror ? 1 : 0,
+              marginLeft: "-60px",
+              transition: "opacity 500ms ease-out",
+              width: "180px",
+              height: "180px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                width: "180px",
+                height: "180px",
+                transform: "rotate(-90deg)",
+                transformOrigin: "center",
+              }}
+            >
+              <div style={{ position: "absolute", left: "50%", top: 0, width: "12px", height: "100%", background: PRIMARY_COLOR, borderRadius: "2px", transform: "translateX(-50%) rotate(-20deg)", transformOrigin: "bottom center" }} />
+              <div style={{ position: "absolute", left: "50%", top: 0, width: "12px", height: "100%", background: PRIMARY_COLOR, borderRadius: "2px", transform: "translateX(-50%) rotate(20deg)", transformOrigin: "bottom center" }} />
+            </div>
+          </div>
+        </div>
+
+        {/* SLOGAN AREA */}
+        <div className="mt-12 flex flex-col items-center gap-4 md:flex-row md:gap-8">
+          <div
+            className={`text-lg md:text-xl font-medium transition-all duration-700 ${
+              ["slogan1", "slogan2", "slogan3", "exit"].includes(phase) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ color: PRIMARY_COLOR }}
+          >
+            I Build.
+          </div>
+
+          <div
+            className={`text-lg md:text-xl font-medium transition-all duration-700 delay-100 ${
+              ["slogan2", "slogan3", "exit"].includes(phase) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ color: ACCENT_COLOR }}
+          >
+            I Scale.
+          </div>
+
+          <div
+            className={`text-lg md:text-xl font-bold transition-all duration-700 delay-200 ${
+              ["slogan3", "exit"].includes(phase) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{
+              background: `linear-gradient(to right, ${PRIMARY_COLOR}, ${ACCENT_COLOR})`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            I Ship Software.
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes blink { 50% { opacity: 0; } }
+        .animate-pulse { animation: blink 1s step-end infinite; }
+      `}</style>
     </div>
   );
 };
