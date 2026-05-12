@@ -3,12 +3,12 @@ import { useReveal } from "@/hooks/use-reveal";
 const groups: { title: string; color: string; items: string[] }[] = [
   {
     title: "Backend",
-    color: "text-primary",
+    color: "text-green-400",
     items: [".NET 8", "C#", "Web API", "Entity Framework", "ADO.NET", "MVC"],
   },
   {
     title: "Frontend",
-    color: "text-accent",
+    color: "text-rose-500",
     items: ["​Angular 19", "JavaScript", "jQuery", "HTML", "CSS", "Bootstrap"],
   },
   {
@@ -18,7 +18,7 @@ const groups: { title: string; color: string; items: string[] }[] = [
   },
   {
     title: "Tools & DevOps",
-    color: "text-primary",
+    color: "text-[#ffd230]",
     items: ["Azure DevOps", "GitHub", "TFS", "DevExpress", "Putty"],
   },
 ];
@@ -71,7 +71,7 @@ const EducationCard = () => {
         </h3>
         <p className="text-muted-foreground mt-1">Bishop Heber College, Trichy, Tamil Nadu</p>
       </div>
-      <span className="font-mono-tag text-accent animate-bounce-subtle">April 2018</span>
+      <span className="font-mono-tag text-rose-500 animate-bounce-subtle">April 2018</span>
       <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-shimmer pointer-events-none" />
     </div>
   );
